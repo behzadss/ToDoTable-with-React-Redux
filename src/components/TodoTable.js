@@ -18,8 +18,17 @@ render(){
                     </tr>
                 </thead>
                 <tbody>
-                    {items.map((item , index) => (
-                        <li key={index}>{item.title}</li>
+                    {items.map(({ title, deadline, checked, done } , index) => (
+                        <tr key={index}>
+                        <td>{index+1}</td>
+                        <td>{title}</td>
+                        <td>{deadline}</td>
+                        <td>{done}</td>
+                        <td><button>v</button>
+                        <button>^</button></td>
+                        <td><input type='checkbox' /></td>
+                        </tr>
+
                     ))}
                     </tbody>
         </table>
