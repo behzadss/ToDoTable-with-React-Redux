@@ -1,2 +1,3 @@
 export const INPUT_VALUE_CHANGE = 'INPUT_VALUE_CHANGE';
 export const TO_DO_ITEM = 'TO_DO_ITEM';
+export const TO_DO_CHECK_CHANGE = 'TO_DO_CHECK_CHANGE';
