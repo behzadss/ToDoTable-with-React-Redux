@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
+
 class TodoTable extends Component {
+    checkChange = index => event => {
+        const { onItemCheckChange } = this.props;
+    
+        onItemCheckChange(event, index);
+      }
 render(){
     const {items}=this.props;
 
@@ -26,7 +32,7 @@ render(){
                         <td>{done}</td>
                         <td><button>v</button>
                         <button>^</button></td>
-                        <td><input type='checkbox' /></td>
+                        <td><input type='checkbox' checked={checked} onChange={this.checkChange(index)}/></td>
                         </tr>
 
                     ))}
