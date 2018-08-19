@@ -1,7 +1,7 @@
-export function rootReducer(state=[],action){
+export default function rootReducer(state=[],action){
 
 
 
 
-    return state;
+    return state
 }
