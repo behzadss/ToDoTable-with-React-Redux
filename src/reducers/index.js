@@ -1,7 +1,8 @@
-export default function rootReducer(state=[],action){
+import { combineReducers } from 'redux';
+import inputValueReducer from './inputValueReducer';
+import itemsReducer from './itemsReducer';
 
-
-
-
-    return state
-}
+export default combineReducers({
+  items: itemsReducer,
+  inputValue: inputValueReducer,
+});
