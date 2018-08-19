@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-
+import {connect} from 'react-redux';
+const ConnectWrapper= connect();
 class App extends Component {
   render() {
     return (
@@ -10,4 +11,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default ConnectWrapper(App);
