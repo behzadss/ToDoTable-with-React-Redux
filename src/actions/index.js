@@ -1,4 +1,4 @@
-import { INPUT_VALUE_CHANGE, TO_DO_ITEM } from '../actionTypes';
+import { INPUT_VALUE_CHANGE, TO_DO_ITEM,TO_DO_CHECK_CHANGE } from '../actionTypes';
 export function inputValueChange(value) {
     return {
       type: INPUT_VALUE_CHANGE,
@@ -9,5 +9,11 @@ export function inputValueChange(value) {
     return {
       type: TO_DO_ITEM,
       payload: title,
+    };
+  }
+  export function toItemCheckChange(index , checked) {
+    return {
+      type: TO_DO_CHECK_CHANGE,
+      payload: {index, checked},
     };
   }
