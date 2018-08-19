@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import { inputValueChange } from './actions';
+import { inputValueChange,todoItem } from './actions';
 
 function mapStateToProps(state) {
   return {
@@ -9,11 +9,15 @@ function mapStateToProps(state) {
   };
 }
 
-const ConnectWrapper= connect(mapStateToProps,{ inputValueChange });
+const ConnectWrapper= connect(mapStateToProps,{ inputValueChange,todoItem });
 class App extends Component {
   handleChange = event => {
     const {inputValueChange}=this.props;
     inputValueChange(event.target.value)
+  }
+  handleAdd = ()=>{
+    const {todoItem,inputValue}= this.props;
+    todoItem(inputValue)
   }
   render() {
     const { items, inputValue } = this.props;
@@ -22,11 +26,11 @@ class App extends Component {
       <div>
         <ol>
           {items.map((item, index) => (
-            <li key={index}></li>
+            <li key={index}>{item.title}</li>
           ))}
         </ol>
         <input value={inputValue} onChange={this.handleChange} />
-        <button >Add</button>
+        <button onClick={this.handleAdd}>Add</button>
       </div>
     );
   }
