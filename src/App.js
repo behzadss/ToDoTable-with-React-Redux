@@ -19,6 +19,12 @@ class App extends Component {
     const {todoItem,inputValue}= this.props;
     todoItem(inputValue)
   }
+  handleKeyup = (event)=>{
+    const {todoItem,inputValue}= this.props;
+    if(event.keyCode===13){
+      todoItem(inputValue)
+    }
+  }
   render() {
     const { items, inputValue } = this.props;
 
@@ -29,7 +35,7 @@ class App extends Component {
             <li key={index}>{item.title}</li>
           ))}
         </ol>
-        <input value={inputValue} onChange={this.handleChange} />
+        <input value={inputValue} onKeyUp={this.handleKeyup} onChange={this.handleChange} />
         <button onClick={this.handleAdd}>Add</button>
       </div>
     );
