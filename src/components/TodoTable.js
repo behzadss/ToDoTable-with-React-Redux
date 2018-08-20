@@ -6,6 +6,11 @@ class TodoTable extends Component {
     
         onItemCheckChange(event, index);
       }
+      handleAllCheck= event =>{
+        const { selectAll } = this.props;
+        selectAll(event.target.checked);
+
+      }
 render(){
     const {items}=this.props;
 
@@ -20,7 +25,7 @@ render(){
                     <th>Deadline</th>
                     <th>Status</th>
                     <th>Operations</th>
-                    <th><input type='checkbox' checked={allChecked}/></th>
+                    <th><input type='checkbox' checked={allChecked} onChange={this.handleAllCheck}/></th>
                     </tr>
                 </thead>
                 <tbody>

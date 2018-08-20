@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import TodoTable from '../components/TodoTable';
-import {toItemCheckChange} from '../actions'
+import {toItemCheckChange,selectAll} from '../actions'
 
 function mapStateToProps(state) {
   return {
@@ -10,7 +10,8 @@ function mapStateToProps(state) {
 }
 
 const ConnectWrapper = connect(mapStateToProps, {
-  toItemCheckChange
+  toItemCheckChange,
+  selectAll
 
 });
 
@@ -19,10 +20,12 @@ class TodoTableForm extends Component {
     const {toItemCheckChange}=this.props;
     toItemCheckChange(index, event.target.checked)
   }
+  
 
   render() {
     const {
       items,
+      selectAll
       
     } = this.props;
 
@@ -31,6 +34,7 @@ class TodoTableForm extends Component {
         <TodoTable
           items={items}
           onItemCheckChange={this.handleCheckChange}
+          selectAll={selectAll}
           />
       </div>
     );
