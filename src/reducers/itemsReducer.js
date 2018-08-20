@@ -1,4 +1,5 @@
-import { TO_DO_ITEM } from '../actionTypes';
+import produce from 'immer'
+import { TO_DO_ITEM , TO_DO_CHECK_CHANGE} from '../actionTypes';
 function buildDefaultItem() {
   return {
     title: '',
@@ -12,5 +13,15 @@ export default function itemsReducer(state = [], action) {
 
     return [...state, { ...buildDefaultItem(), ...action.payload }];
   }
-  return state;
+ 
+if (action.type === TO_DO_CHECK_CHANGE) {
+
+  return produce(state , draft=>{
+  draft[action.payload.index].checked=action.payload.checked;
+  }
+)
 }
+return state;
+}
+
+
