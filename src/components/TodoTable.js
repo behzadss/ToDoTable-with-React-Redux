@@ -9,7 +9,7 @@ class TodoTable extends Component {
 render(){
     const {items}=this.props;
 
-
+    const allChecked= items.every(item => item.checked)
 
     return (
         <table>
@@ -20,18 +20,18 @@ render(){
                     <th>Deadline</th>
                     <th>Status</th>
                     <th>Operations</th>
-                    <th><input type='checkbox' /></th>
+                    <th><input type='checkbox' checked={allChecked}/></th>
                     </tr>
                 </thead>
                 <tbody>
-                    {items.map(({ title, deadline, checked, done } , index) => (
+                    {items.map(({ title, deadline, checked, done, up , down } , index) => (
                         <tr key={index}>
                         <td>{index+1}</td>
                         <td>{title}</td>
                         <td>{deadline}</td>
                         <td>{done ? 'Done' : 'Pending'}</td>
-                        <td><button>v</button>
-                        <button>^</button></td>
+                        <td><button disabled={index===0}>v</button>
+                        <button disabled={index===items.length-1}>^</button></td>
                         <td><input type='checkbox' checked={checked} onChange={this.checkChange(index)}/></td>
                         </tr>
 
