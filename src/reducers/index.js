@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import inputValueReducer from './inputValueReducer';
+import newTodoItemReducer from './newTodoItemReducer';
 import itemsReducer from './itemsReducer';
 
 export default combineReducers({
   items: itemsReducer,
-  inputValue: inputValueReducer,
+  newTodoItem: newTodoItemReducer,
 });

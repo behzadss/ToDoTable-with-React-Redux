@@ -29,7 +29,7 @@ render(){
                         <td>{index+1}</td>
                         <td>{title}</td>
                         <td>{deadline}</td>
-                        <td>{done}</td>
+                        <td>{done ? 'Done' : 'Pending'}</td>
                         <td><button>v</button>
                         <button>^</button></td>
                         <td><input type='checkbox' checked={checked} onChange={this.checkChange(index)}/></td>
@@ -38,17 +38,8 @@ render(){
                     ))}
                     </tbody>
         </table>
-
-
-
-
     )
 }
-
-
-
-
-
 }
 
 export default TodoTable;
