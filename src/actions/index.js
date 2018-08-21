@@ -1,11 +1,5 @@
-import {NEW_TODO_ITEM_TITLE_CHANGE,
+import {
   NEW_TODO_ITEM_DEADLINE_CHANGE, TO_DO_ITEM,TO_DO_CHECK_CHANGE,TO_All_SELECT,SET_DONE,SET_REMOVE,MOVE_UP,MOVE_DOWN} from '../actionTypes';
-  export function newTodoItemTitleChange(value) {
-    return {
-      type: NEW_TODO_ITEM_TITLE_CHANGE,
-      payload: value,
-    };
-  }
   
   export function newTodoItemDeadlineChange(value) {
     return {
