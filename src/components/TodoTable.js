@@ -3,48 +3,60 @@ import React, { Component } from 'react';
 class TodoTable extends Component {
     checkChange = index => event => {
         const { onItemCheckChange } = this.props;
-    
+
         onItemCheckChange(event, index);
-      }
-      handleAllCheck= event =>{
+    }
+    handleAllCheck = event => {
         const { selectAll } = this.props;
         selectAll(event.target.checked);
 
-      }
-render(){
-    const {items}=this.props;
+    }
+    createHandleTodoItemMoveUp = index => event => {
+        const { moveup } = this.props;
 
-    const allChecked= items.every(item => item.checked)
+        moveup(index);
+    }
+    createHandleTodoItemMoveDown = index => event => {
+        const { movedown } = this.props;
 
-    return (
-        <table>
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Title</th>
-                    <th>Deadline</th>
-                    <th>Status</th>
-                    <th>Operations</th>
-                    <th><input type='checkbox' checked={allChecked} onChange={this.handleAllCheck}/></th>
+        movedown(index);
+    }
+    render() {
+        const { items } = this.props;
+
+        const allChecked = items.every(item => item.checked)
+
+        return (
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Title</th>
+                        <th>Deadline</th>
+                        <th>Status</th>
+                        <th>Operations</th>
+                        <th><input type='checkbox' checked={allChecked} onChange={this.handleAllCheck} /></th>
                     </tr>
                 </thead>
                 <tbody>
-                    {items.map(({ title, deadline, checked, done, up , down } , index) => (
+                    {items.map(({ title, deadline, checked, done, up, down }, index) => (
                         <tr key={index}>
-                        <td>{index+1}</td>
-                        <td>{title}</td>
-                        <td>{deadline}</td>
-                        <td>{done ? 'Done' : 'Pending'}</td>
-                        <td><button disabled={index===0}>v</button>
-                        <button disabled={index===items.length-1}>^</button></td>
-                        <td><input type='checkbox' checked={checked} onChange={this.checkChange(index)}/></td>
+                            <td>{index + 1}</td>
+                            <td>{title}</td>
+                            <td>{deadline}</td>
+                            <td>{done ? 'Done' : 'Pending'}</td>
+                            <td>
+                                <button disabled={index === 0} onClick={this.createHandleTodoItemMoveUp(index)}>^</button>
+                                <button disabled={index === items.length - 1} onClick={this.createHandleTodoItemMoveDown(index)}>v</button>
+                            </td>
+                            <td><input type='checkbox' checked={checked} onChange={this.checkChange(index)} /></td>
                         </tr>
 
                     ))}
-                    </tbody>
-        </table>
-    )
-}
+                </tbody>
+            </table>
+        )
+    }
 }
 
 export default TodoTable;
