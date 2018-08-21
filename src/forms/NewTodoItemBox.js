@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import TextField from '@material-ui/core/TextField';
+import {reduxForm, Field} from 'redux-form';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 
@@ -9,7 +10,6 @@ import DatePicker from 'material-ui-pickers/DatePicker';
 
 
 import {
-  newTodoItemTitleChange,
   todoItem,
   newTodoItemDeadlineChange
 } from '../actions';
@@ -20,39 +20,29 @@ function mapStateToProps(state) {
     deadline: state.newTodoItem.deadline,
   };
 }
-const ConnectWrapper = connect(mapStateToProps, { newTodoItemTitleChange, todoItem, newTodoItemDeadlineChange });
+const ConnectWrapper = connect(mapStateToProps, { todoItem, newTodoItemDeadlineChange });
+const FormWrapper = reduxForm()
 
 class NewTodoItemBox extends Component {
   handleAdd = () => {
     const { todoItem, title, deadline } = this.props;
     todoItem({ title, deadline })
   }
-  handleChange = event => {
-    const { newTodoItemTitleChange } = this.props;
-    newTodoItemTitleChange(event.target.value)
-  }
+  
   handledateChange = date => {
     const { newTodoItemDeadlineChange } = this.props;
     newTodoItemDeadlineChange(date)
   }
 
-  handleKeyUp = event => {
-    const { todoItem, title, deadline } = this.props;
-
-    if (event.keyCode === 13) {
-      todoItem({ title, deadline });
-    }
-  }
   render() {
     const { title, deadline } = this.props;
     return (
       <Paper
       style={{ width: 300}}>
-        <TextField
-        label="Title"
-        value={title}
-        onKeyUp={this.handleKeyUp}
-        onChange={this.handleChange}
+        <Field
+        name="title"
+        component={TextField}
+        label='Title'
         margin="normal"
            /><br/>
         <DatePicker
@@ -70,4 +60,4 @@ class NewTodoItemBox extends Component {
   }
 }
 
-export default ConnectWrapper(NewTodoItemBox);
+export default ConnectWrapper((FormWrapper(NewTodoItemBox)));
