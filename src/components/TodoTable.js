@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import format from 'date-fns/format'
 
 class TodoTable extends Component {
     checkChange = index => event => {
@@ -43,7 +44,7 @@ class TodoTable extends Component {
                         <tr key={index}>
                             <td>{index + 1}</td>
                             <td>{title}</td>
-                            <td>{deadline}</td>
+                            <td>{format(deadline, 'DD/MM/YY')}</td>
                             <td>{done ? 'Done' : 'Pending'}</td>
                             <td>
                                 <button disabled={index === 0} onClick={this.createHandleTodoItemMoveUp(index)}>^</button>
