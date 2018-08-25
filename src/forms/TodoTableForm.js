@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import TodoTable from '../components/TodoTable';
+import Paper from '@material-ui/core/Paper';
 import {toItemCheckChange,selectAll,SetDoneSelected,SetRemoveSelected,movedown,moveup} from '../actions'
 
 function mapStateToProps(state) {
@@ -38,7 +39,7 @@ class TodoTableForm extends Component {
     } = this.props;
 
     return (
-      <div>
+      <Paper style={{width:800 , margin : 16 , padding: 8}} >
         <TodoTable
           items={items}
           onItemCheckChange={this.handleCheckChange}
@@ -48,8 +49,8 @@ class TodoTableForm extends Component {
           />
           <button onClick={SetDoneSelected}>Done</button>
           <button onClick={SetRemoveSelected}>Remove</button>
-      </div>
-    );
+          </Paper>
+              );
   }
 }
 

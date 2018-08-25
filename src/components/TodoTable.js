@@ -7,6 +7,10 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import Paper from '@material-ui/core/Paper';
 import Checkbox from '@material-ui/core/Checkbox'
+import Button from '@material-ui/core/Button';
+import Tooltip from '@material-ui/core/Tooltip';
+import ArrowDropDown from '@material-ui/icons/ArrowDropDown';
+import ArrowDropUp from '@material-ui/icons/ArrowDropUp';
 
 class TodoTable extends Component {
     checkChange = index => event => {
@@ -37,7 +41,7 @@ class TodoTable extends Component {
         const someChecked = items.some(item => item.checked)
 
         return (
-            <Paper>
+            <Paper> 
             <Table>
                 <TableHead>
                     <TableRow>
@@ -58,10 +62,33 @@ class TodoTable extends Component {
                             <TableCell>{title}</TableCell>
                             <TableCell>{format(deadline, 'DD/MM/YY')}</TableCell>
                             <TableCell>{done ? 'Done' : 'Pending'}</TableCell>
-                            <TableCell>
-                                <button disabled={index === 0} onClick={this.createHandleTodoItemMoveUp(index)}>^</button>
-                                <button disabled={index === items.length - 1} onClick={this.createHandleTodoItemMoveDown(index)}>v</button>
-                            </TableCell>
+                            <TableCell style={{display:'flex'}}>
+                                <Tooltip title="Move Down">
+                                <div>
+                                <Button
+                                variant="fab"
+                                mini={true}
+                                color="secondary"
+                                disabled={index === 0}
+                                onClick={this.createHandleTodoItemMoveDown(index)}
+                                >
+                                <ArrowDropDown />
+                                </Button>
+                                </div>
+                                </Tooltip>
+                                <Tooltip title="Move Up">
+                                <div>
+                                <Button
+                                variant="fab"
+                                mini={true}
+                                color="secondary"
+                                disabled={index === items.length-1}
+                                onClick={this.createHandleTodoItemMoveUp(index)}
+                                >
+                                <ArrowDropUp />
+                                </Button>
+                                </div>
+                                </Tooltip>                            </TableCell>
                             <TableCell><input type='checkbox' checked={checked} onChange={this.checkChange(index)} /></TableCell>
                         </tr>
 
