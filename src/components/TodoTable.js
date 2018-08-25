@@ -41,60 +41,63 @@ class TodoTable extends Component {
         const someChecked = items.some(item => item.checked)
 
         return (
-            <Paper> 
-            <Table>
-                <TableHead>
-                    <TableRow>
-                        <TableCell>#</TableCell>
-                        <TableCell>Title</TableCell>
-                        <TableCell>Deadline</TableCell>
-                        <TableCell>Status</TableCell>
-                        <TableCell>Operations</TableCell>
-                        <TableCell>
-                            <Checkbox checked={!nonechecked && allChecked} onChange={this.handleAllCheck} indeterminate={someChecked && !allChecked} />
+            <Paper>
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>#</TableCell>
+                            <TableCell>Title</TableCell>
+                            <TableCell>Deadline</TableCell>
+                            <TableCell>Status</TableCell>
+                            <TableCell>Operations</TableCell>
+                            <TableCell>
+                                <Checkbox checked={!nonechecked && allChecked} onChange={this.handleAllCheck} indeterminate={someChecked && !allChecked} />
                             </TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {items.map(({ title, deadline, checked, done, up, down }, index) => (
-                        <tr key={index}>
-                            <TableCell>{index + 1}</TableCell>
-                            <TableCell>{title}</TableCell>
-                            <TableCell>{format(deadline, 'DD/MM/YY')}</TableCell>
-                            <TableCell>{done ? 'Done' : 'Pending'}</TableCell>
-                            <TableCell style={{display:'flex'}}>
-                                <Tooltip title="Move Down">
-                                <div>
-                                <Button
-                                variant="fab"
-                                mini={true}
-                                color="secondary"
-                                disabled={index === 0}
-                                onClick={this.createHandleTodoItemMoveDown(index)}
-                                >
-                                <ArrowDropDown />
-                                </Button>
-                                </div>
-                                </Tooltip>
-                                <Tooltip title="Move Up">
-                                <div>
-                                <Button
-                                variant="fab"
-                                mini={true}
-                                color="secondary"
-                                disabled={index === items.length-1}
-                                onClick={this.createHandleTodoItemMoveUp(index)}
-                                >
-                                <ArrowDropUp />
-                                </Button>
-                                </div>
-                                </Tooltip>                            </TableCell>
-                            <TableCell><input type='checkbox' checked={checked} onChange={this.checkChange(index)} /></TableCell>
-                        </tr>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {items.map(({ title, deadline, checked, done, up, down }, index) => (
+                            <TableRow key={index}>
+                                <TableCell>{index + 1}</TableCell>
+                                <TableCell>{title}</TableCell>
+                                <TableCell>{format(deadline, 'DD/MM/YY')}</TableCell>
+                                <TableCell>{done ? 'Done' : 'Pending'}</TableCell>
+                                <TableCell style={{ display: 'flex' }}>
+                                    <Tooltip title="Move Down">
+                                        <div>
+                                            <Button
+                                                variant="fab"
+                                                mini={true}
+                                                color="secondary"
+                                                disabled={index === 0}
+                                                onClick={this.createHandleTodoItemMoveDown(index)}
+                                            >
+                                                <ArrowDropDown />
+                                            </Button>
+                                        </div>
+                                    </Tooltip>
+                                    <Tooltip title="Move Up">
+                                        <div>
+                                            <Button
+                                                variant="fab"
+                                                mini={true}
+                                                color="secondary"
+                                                disabled={index === items.length - 1}
+                                                onClick={this.createHandleTodoItemMoveUp(index)}
+                                            >
+                                                <ArrowDropUp />
+                                            </Button>
+                                        </div>
+                                    </Tooltip>
+                                </TableCell>
+                                <TableCell>
+                                    <Checkbox checked={checked} onChange={this.checkChange(index)} />
+                                </TableCell>
+                            </TableRow>
 
-                    ))}
-                </TableBody>
-            </Table>
+                        ))}
+                    </TableBody>
+                </Table>
             </Paper>
         )
     }
