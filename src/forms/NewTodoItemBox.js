@@ -1,57 +1,89 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { reduxForm, Field, arrayPush } from 'redux-form';
+import isBefore from 'date-fns/isBefore';
+import startOfDay from 'date-fns/startOfDay';
 import TextField from '../components/form/TextField';
 import DateField from '../components/form/DateField';
-import { reduxForm, Field } from 'redux-form';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
+import { validateTodoTitleUnique } from '../api';
 
-import DatePicker from 'material-ui-pickers/DatePicker';
+function validate(values) {
+  const errors = {};
 
+  if (!values.title || !values.title.trim()) {
+    errors.title = "Title should be provided";
+  }
 
+  if (isBefore(startOfDay(values.deadline), startOfDay(new Date()))) {
+    errors.deadline = "Deadline must not be in the past";
+  }
 
-import {
-  todoItem,
-} from '../actions';
+  return errors;
+}
 
+async function asyncValidate(values) {
+  const errors = {};
 
-const ConnectWrapper = connect(null, { todoItem });
-const FormWrapper = reduxForm({ form: 'newItem', initialValues: { deadline: new Date() } })
+  if (values.title) {
+    const titleIsUnique = await validateTodoTitleUnique(values.title);
+
+    if (!titleIsUnique) {
+      errors.title = "Title should be unique";
+      throw errors;
+    }
+  }
+}
+
+const ConnectWrapper = connect(null, { arrayPush });
+
+const FormWrapper = reduxForm({
+  form: 'newItem',
+  initialValues: { deadline: new Date() },
+  validate,
+  asyncValidate,
+  asyncBlurFields: ['title'],
+});
 
 class NewTodoItemBox extends Component {
   handleAdd = values => {
-    const { todoItem ,reset} = this.props;
-    todoItem(values);
+    const { arrayPush, reset } = this.props;
+
+    arrayPush('todoItems', 'items', values);
     reset();
   }
 
-  handleKeyUp=event => {
-    const {submit}= this.props;
-    if(event.KeyCode===13){
+  handleKeyUp = event => {
+    const { submit } = this.props;
+
+    if (event.keyCode === 13) {
       submit();
     }
   }
+
   render() {
     const { handleSubmit } = this.props;
+
     return (
       <Paper
         square={true}
         style={{
           padding: 16,
-          width: 300,
+          margin: 8,
           display: 'flex',
           flexDirection: 'column',
-        }}>
+          width: 300,
+        }}
+      >
         <form onSubmit={handleSubmit(this.handleAdd)}>
-          <Field name="title" component={TextField} label='Title' margin="normal" />
-          <Field name="deadline" component={DateField} label='Deadline' margin="normal" />
-          <Button type="submit" style={{ margin: 8 }} variant="raised" color="primary" onClick={this.handleSubmit}>Add</Button>
+          <Field name="title" component={TextField} label="Title" margin="normal" />
+          <Field name="deadline" component={DateField} label="Deadline" margin="normal" />
+          <Button type="submit" color="primary" variant="raised" style={{ margin: 8 }}>Add</Button>
         </form>
       </Paper>
-
-
-    )
+    );
   }
 }
 
-export default ConnectWrapper((FormWrapper(NewTodoItemBox)));
+export default FormWrapper(ConnectWrapper(NewTodoItemBox));
