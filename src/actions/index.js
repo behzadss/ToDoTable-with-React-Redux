@@ -1,12 +1,7 @@
 import {
-  NEW_TODO_ITEM_DEADLINE_CHANGE, TO_DO_ITEM,TO_DO_CHECK_CHANGE,TO_All_SELECT,SET_DONE,SET_REMOVE,MOVE_UP,MOVE_DOWN} from '../actionTypes';
+  TO_DO_ITEM,TO_DO_CHECK_CHANGE,TO_All_SELECT,SET_DONE,SET_REMOVE,MOVE_UP,MOVE_DOWN} from '../actionTypes';
   
-  export function newTodoItemDeadlineChange(value) {
-    return {
-      type: NEW_TODO_ITEM_DEADLINE_CHANGE,
-      payload: value,
-    };
-  }
+  
   export function todoItem(item) {
     return {
       type: TO_DO_ITEM,
