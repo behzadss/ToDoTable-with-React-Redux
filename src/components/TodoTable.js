@@ -33,6 +33,8 @@ class TodoTable extends Component {
         const { items } = this.props;
 
         const allChecked = items.every(item => item.checked)
+        const nonechecked = items.every(item => !item.checked)
+        const someChecked = items.some(item => item.checked)
 
         return (
             <Paper>
@@ -44,7 +46,9 @@ class TodoTable extends Component {
                         <TableCell>Deadline</TableCell>
                         <TableCell>Status</TableCell>
                         <TableCell>Operations</TableCell>
-                        <TableCell><input type='checkbox' checked={allChecked} onChange={this.handleAllCheck} /></TableCell>
+                        <TableCell>
+                            <Checkbox checked={!nonechecked && allChecked} onChange={this.handleAllCheck} indeterminate={someChecked && !allChecked} />
+                            </TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
